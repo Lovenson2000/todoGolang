@@ -1,16 +1,24 @@
-root = "."      # The root directory of the project
-tmp_dir = "tmp" # The temporary directory where air will store its temporary files
+# The root directory of the project
+root = "."
 
-[build] # The build configuration
-bin = "main" # The name of the binary file to be generated after building the project
-cmd = "go build -o {{.Output}} {{.Input}}" # The command to build the project
-exclude = [
-  "tmp/*",
-  "client/*",
-] # Specifies the directories to be excluded from monitoring for changes
-include = [
-  "**/*.go",
-] # Specifies the file patterns to be included for monitoring.
-ignore = [
-  "tmp/*",
-] # Specifies the files or directories to be ignored when triggering a build.
+# The temporary directory where air will store its temporary files
+tmp_dir = "tmp"
+# The build configuration
+[build]
+# The name of the binary file to be generated after building the project
+bin = "tmp/main"
+# The command to build the project
+cmd = "go build -o {{.Output}} {{.Input}}"
+exclude_dir = ["temp", "client/node_modules"]
+# Specifies the directories to be excluded from monitoring for changes
+# exclude_dir = ["tmp", "client/node_modules"]
+
+# Specifies the file patterns to be included for monitoring
+include = ["**/*.go"]
+include_ext = ["go", "tpl", "tmpl", "html"]
+stop_on_error = true
+# Specifies the files or directories to be ignored when triggering a build
+ignore = ["tmp/*", "client/*"]
+[screen]
+clear_on_rebuild = true
+keep_scroll = true
